@@ -13,3 +13,5 @@
 
 <h3>Loading newly created poses from library</h3>
 <img width="1280" height="571" alt="apply_saved_pose" src="https://github.com/user-attachments/assets/a14d19b5-b85f-46ea-8965-1af159bc9cdd" />
+
+Character rigs from http://www.joshburton.com/projects/morpheus.asp
