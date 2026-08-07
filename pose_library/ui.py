@@ -1,10 +1,11 @@
-from pose_library import core
-import pose_transfer
+from pose_library import core, pose_transfer
 from maya import cmds
 
 WINDOW_NAME = 'pose_library_ui'
 TEXT_LIST_NAME = 'pose_names_text_list'
 TEXT_FIELD_NAME = 'save_post_text_field'
+REMOVE_BUTTON = 'remove_button'
+APPLY_BUTTON = 'apply_button'
 
 def show_ui():
     """ Show pose library ui. """
@@ -15,9 +16,9 @@ def show_ui():
     # apply pose section
     cmds.columnLayout(adjustableColumn=True, rowSpacing=5)
     cmds.frameLayout(label='Poses', collapsable=True, backgroundColor=(0.6, 0.5, 0.4))
-    cmds.button(label='Remove Pose', height=20, command=remove_selected_pose)
-    cmds.textScrollList(TEXT_LIST_NAME, allowMultiSelection=False)
-    cmds.button(label='Apply Pose', height=30, command=apply_selected_pose)
+    cmds.button(REMOVE_BUTTON, label='Remove Pose', height=20, command=remove_selected_pose, enable=False)
+    cmds.textScrollList(TEXT_LIST_NAME, allowMultiSelection=False, selectCommand=enable_buttons)
+    cmds.button(APPLY_BUTTON, label='Apply Pose', height=30, command=apply_selected_pose, enable=False)
 
     # save pose section
     cmds.setParent("..")
@@ -106,6 +107,8 @@ def reload_poses():
     for name in sorted_names:
         add_pose(name)
 
+    disable_buttons()
+
 
 def add_pose(pose_name):
     """ Add new pose name to text list.
@@ -153,3 +156,13 @@ def get_selected_pose():
     
     selected_item = selection[0]
     return selected_item
+
+def enable_buttons():
+    """ Update buttons to be enabled when item is selected in text scroll list. """
+    cmds.button(REMOVE_BUTTON, edit=True, enable=True)
+    cmds.button(APPLY_BUTTON, edit=True, enable=True)
+
+def disable_buttons():
+    """ Update buttons to be disabled when no item is selected in text scroll list. """
+    cmds.button(REMOVE_BUTTON, edit=True, enable=False)
+    cmds.button(APPLY_BUTTON, edit=True, enable=False)

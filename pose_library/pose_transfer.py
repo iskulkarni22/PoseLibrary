@@ -1,19 +1,5 @@
 from maya import cmds
 
-def show_ui():
-    """ Show ui for the tool. """
-    window = cmds.window(title="Pose Transfer Tool", width=350)
-    cmds.columnLayout(adjustableColumn=True)
-    cmds.text(label="POSE TRANSFER", 
-              height=35, 
-              ann="Transfer pose from first selected rig to the rest of the selection.")
-    cmds.button(label="Transfer Selected", 
-                height=40, 
-                ann="Select 2 or more characters.", 
-                command=transfer_selected)
-    cmds.showWindow(window)
-
-
 def transfer_selected(*args):
     """ Transfer pose from first selected rig to the rest of the selection.
 
